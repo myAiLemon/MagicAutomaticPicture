@@ -1,0 +1,545 @@
+{
+  "last_node_id": 48,
+  "last_link_id": 94,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        410,
+        620
+      ],
+      "size": [
+        430,
+        100
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            54
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            52,
+            75
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            8
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "Ace极夜星闪ill.safetensors"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        850,
+        570
+      ],
+      "size": [
+        340,
+        150
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            57
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        832,
+        1344,
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        410,
+        400
+      ],
+      "size": [
+        430,
+        180
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 52
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            56
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "unaestheticxlv13,negativexl_d,bad anatomy,blurry,disembodied limb,two navel eyes,worst quality,low quality,more than five fingers in one hand,more than 5 toes on one foot,hand with more than 5 fingers,hand with less than 4 fingers,ad anatomy,bad hands,mutated hands and fingers,extra legs,extra arms,interlocked fingers,duplicate,cropped,text,jpeg,artifacts,signature,watermark,username,blurry,artist name,trademark,title,muscular,sd character,multiple view,reference sheet,long body,malformed limbs,multiple breasts,cloned face,malformed,mutated,bad anatomy,disfigured,bad proportions,duplicate,bad feet,artist name,extra limbs,ugly,text font ui,missing limb,\n"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1200,
+        190
+      ],
+      "size": [
+        480,
+        50
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 58
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            94
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 24,
+      "type": "KSampler",
+      "pos": [
+        850,
+        190
+      ],
+      "size": [
+        340,
+        340
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 54
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 74
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 56
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 57
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            58
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        110401231389629,
+        "randomize",
+        28,
+        7,
+        "euler_ancestral",
+        "normal",
+        1
+      ]
+    },
+    {
+      "id": 32,
+      "type": "IntegratedCLIPTextEncodeWithExtract",
+      "pos": [
+        410,
+        190
+      ],
+      "size": [
+        430,
+        170
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 75
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            74
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "prompt_text",
+          "type": "STRING",
+          "links": [
+            92
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IntegratedCLIPTextEncodeWithExtract"
+      },
+      "widgets_values": [
+        "1girl, solo, looking at viewer, smile, open mouth, blue eyes, shirt, hair ornament, gloves, bow, holding, white shirt, ahoge, hair bow, green hair, shorts, teeth, black gloves, fingerless gloves, star \\(symbol\\), two side up, thigh strap, blue bow, stuffed toy, stuffed animal, sharp teeth, bandaid, stitches, bandaid on leg, shark, sticker, stuffed shark , depth of field, light particles, lens flare, (artist:quasarcake:0.8),extreme aesthetic,(wlop:0.6), wanke,rella,wanke,masterpiece,best quality,good quality,newest ,year 2024, year 2023, very aesthetic,absurdres,Visual impact,Electromotive force, perspective composition, A shot with tension, ultra-high resolution,32K UHD,sharp focus,best quality,masterpiece,Emotionalization masterpiece, unconventional supreme,masterful details,with a high end texture,in the style of fashion photography, (Visual impact:1.2),giving the poster a dynamic and visually striking appearance,impactful picture,offcial art,colorful,splash of color, movie perspective, masterpiece,best quality,amazing quality,very aesthetic,absurdres,best quality,newest,qxsy\n"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 38,
+      "type": "EditableStringNode",
+      "pos": [
+        1200,
+        570
+      ],
+      "size": [
+        260,
+        150
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            93
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EditableStringNode"
+      },
+      "widgets_values": [
+        ",depth of field, light particles, lens flare, (artist:quasarcake:0.8),extreme aesthetic,(wlop:0.6), wanke,rella,wanke,masterpiece,best quality,good quality,newest ,year 2024, year 2023, very aesthetic,absurdres,Visual impact,Electromotive force, perspective composition, A shot with tension, ultra-high resolution,32K UHD,sharp focus,best quality,masterpiece,Emotionalization masterpiece, unconventional supreme,masterful details,with a high end texture,in the style of fashion photography, (Visual impact:1.2),giving the poster a dynamic and visually striking appearance,impactful picture,offcial art,colorful,splash of color, movie perspective, masterpiece,best quality,amazing quality,very aesthetic,absurdres,best quality,newest,qxsy"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 44,
+      "type": "ProcessAndSave",
+      "pos": [
+        1200,
+        280
+      ],
+      "size": [
+        260,
+        250
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 94
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 92,
+          "widget": {
+            "name": "prompt"
+          }
+        },
+        {
+          "name": "remove_prompt",
+          "type": "STRING",
+          "link": 93,
+          "widget": {
+            "name": "remove_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image_paths",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "text_paths",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ProcessAndSave"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "ComfyUI/output/Magic_Output",
+        "Image",
+        "disable",
+        4
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 45,
+      "type": "Note",
+      "pos": [
+        130,
+        190
+      ],
+      "size": [
+        270,
+        530
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "你好你好 感谢你的使用(*/ω＼*)\n\n在右边这个绿色的\"Integrated CLIP Text Encode With Extract\"节点 输入生成图片的提示词\n\n\nHello, hello! Thank you for using it (*/ω＼*)\nIn the green \"Integrated CLIP Text Encode With Extract\" node on the right, input the prompt for generating the image."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 46,
+      "type": "Note",
+      "pos": [
+        1470,
+        570
+      ],
+      "size": [
+        210,
+        150
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "在左边这个青色的节点输入生成的txt文件中不需要的提示词\n会匹配正向提示词中与这个节点相同提示词 并删除 保存到txt文件中\n\nEnter the unwanted prompts in the generated .txt file into the cyan node on the left.\nIt will match the prompts in the positive prompt list that are identical to those in this node, delete them, and then save the result to the .txt file."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 47,
+      "type": "Note",
+      "pos": [
+        1470,
+        280
+      ],
+      "size": [
+        210,
+        250
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "左边这个蓝色的节点是保存图片和txt文件\n\noutput_dir用于修改保存输出图片和txt文件的目录 建议是自己再建一个文件夹存放\n\nThe blue node on the left is for saving images and .txt files.\nThe output_dir is used to modify the directory for saving the output images and .txt files. It is recommended to create a separate folder for storage."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      8,
+      4,
+      2,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      52,
+      4,
+      1,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      54,
+      4,
+      0,
+      24,
+      0,
+      "MODEL"
+    ],
+    [
+      56,
+      7,
+      0,
+      24,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      57,
+      5,
+      0,
+      24,
+      3,
+      "LATENT"
+    ],
+    [
+      58,
+      24,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      74,
+      32,
+      0,
+      24,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      75,
+      4,
+      1,
+      32,
+      0,
+      "CLIP"
+    ],
+    [
+      92,
+      32,
+      1,
+      44,
+      1,
+      "STRING"
+    ],
+    [
+      93,
+      38,
+      0,
+      44,
+      2,
+      "STRING"
+    ],
+    [
+      94,
+      8,
+      0,
+      44,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.895430243255256,
+      "offset": [
+        -87.28748554223039,
+        -40.949299156789614
+      ]
+    }
+  },
+  "version": 0.4
+}
